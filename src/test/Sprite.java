@@ -6,12 +6,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Sprite {
-	private Circle circle;
 	private double positionX;
 	private double positionY;
 	private double velocityX;
 	private double velocityY;
-	private double radius;
 	
 	public Sprite(){
 		positionX = 0;
@@ -20,13 +18,7 @@ public class Sprite {
 		velocityY = 0;
 	}
 	
-	public void setCircle(Circle c){
-		circle = c;
-		radius = c.getRadius();
-	}
-	
 	public void setColor(Color color) {
-		circle.setFill(color);
 	}
 	
 	public void setPosition(double x, double y) {
@@ -52,10 +44,6 @@ public class Sprite {
 		return positionY;
 	}
 	
-	public double getRadius() {
-		return circle.getRadius();
-	}
-	
 	public double getVX() {
 		return this.velocityX;
 	}
@@ -67,19 +55,6 @@ public class Sprite {
 	public void update(double time) {
 		positionX += velocityX*time;
 		positionY += velocityY*time;
-	}
-	
-	public void render(GraphicsContext gc) {
-		gc.setFill(circle.getFill());
-		gc.fillOval(positionX, positionY, radius, radius);
-	}
-	
-	public Rectangle2D getBoundary() {
-		return new Rectangle2D(positionX,positionY,radius,radius);
-	}
-	
-	public boolean intersects(Sprite s) {
-		return s.getBoundary().intersects(this.getBoundary());
 	}
 	
 	public String toString() {
