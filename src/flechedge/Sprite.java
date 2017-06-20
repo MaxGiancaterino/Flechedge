@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Sprite {
-	private double positionX;
-	private double positionY;
+	private int positionX;
+	private int positionY;
 	private double velocityX;
 	private double velocityY;
 	
@@ -21,7 +21,7 @@ public class Sprite {
 	public void setColor(Color color) {
 	}
 	
-	public void setPosition(double x, double y) {
+	public void setPosition(int x, int y) {
 		positionX = x;
 		positionY = y;
 	}
