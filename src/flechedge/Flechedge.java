@@ -23,10 +23,6 @@ public class Flechedge extends Application {
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
 		
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		Sprite block = new Sprite();
-		block.setImage("Sprites/Rectangle.png");
 		
 		ArrayList<String> input = new ArrayList<String>();
 		
@@ -39,6 +35,20 @@ public class Flechedge extends Application {
 					}
 				}
 		);
+		
+		scene.setOnKeyReleased(
+				new EventHandler<KeyEvent>(){
+					public void handle(KeyEvent e) {
+						String code = e.getCode().toString();
+						input.remove(code);
+					}
+				}
+		);
+		
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		Sprite block = new Sprite();
+		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
 		
 		stage.show();
