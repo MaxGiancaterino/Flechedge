@@ -2,6 +2,7 @@ package flechedge;
 
 import java.util.ArrayList;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,7 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Flechedge extends Application {
-
+	
+	public double speed = 100;
+	
 	public void start(Stage stage) throws Exception {
 		Group root = new Group();
 		Scene scene = new Scene(root);
@@ -36,6 +39,30 @@ public class Flechedge extends Application {
 		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
 		
+		
+		LongValue lastNanoTime = new LongValue(System.nanoTime());
+		new AnimationTimer() {
+			public void handle(long currentNanoTime) {
+				double elapsedTime = (currentNanoTime-lastNanoTime.value)/1000000000;
+				lastNanoTime.value = currentNanoTime;
+				
+				//movement
+				block.setVelocity(0, 0);
+				if(input.contains("UP")) {
+					block.addVelocity(0, -speed);
+				}
+				if(input.contains("DOWN")) {
+					block.addVelocity(0, speed);
+				}
+				if(input.contains("LEFT")) {
+					block.addVelocity(-speed, 0);
+				}
+				if(input.contains("RIGHT")) {
+					block.addVelocity(speed, 0);
+				}
+				
+			}
+		}.start();
 		stage.show();
 	}
 	
