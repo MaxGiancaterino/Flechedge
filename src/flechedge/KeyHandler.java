@@ -17,9 +17,5 @@ public class KeyHandler implements EventHandler<KeyEvent>{
 		if (e.getEventType() == KeyEvent.KEY_RELEASED) {
 			keyInputs.remove(e.getText());
 		}
-		for (String s : keyInputs) {
-			System.out.println(s + "\n");
-		}
 	}
-
 }
