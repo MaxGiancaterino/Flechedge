@@ -26,24 +26,9 @@ public class Flechedge extends Application {
 		
 		ArrayList<String> input = new ArrayList<String>();
 		
-		scene.setOnKeyPressed(
-				new EventHandler<KeyEvent>(){
-					public void handle(KeyEvent e) {
-						String code = e.getCode().toString();
-						if(!input.contains(code))
-							input.add(code);
-					}
-				}
-		);
-		
-		scene.setOnKeyReleased(
-				new EventHandler<KeyEvent>(){
-					public void handle(KeyEvent e) {
-						String code = e.getCode().toString();
-						input.remove(code);
-					}
-				}
-		);
+		EventHandler<KeyEvent> keyHandler = new KeyHandler();
+		scene.setOnKeyPressed(keyHandler);
+		scene.setOnKeyReleased(keyHandler);
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
