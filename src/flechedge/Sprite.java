@@ -29,8 +29,6 @@ public class Sprite {
 		height = i.getHeight();
 	}
 	
-	public void setColor(Color color) {
-	}
 	
 	public void setPosition(double x, double y) {
 		positionX = x;
@@ -66,6 +64,10 @@ public class Sprite {
 	public void update(double time) {
 		positionX += velocityX*time;
 		positionY += velocityY*time;
+	}
+	
+	public void render(GraphicsContext gc) {
+		gc.drawImage(image, positionX, positionY);
 	}
 	
 	public String toString() {
