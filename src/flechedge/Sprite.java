@@ -2,20 +2,31 @@ package flechedge;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Sprite {
+	private Image image;
 	private double positionX;
 	private double positionY;
 	private double velocityX;
 	private double velocityY;
+	private double width;
+	private double height;
 	
 	public Sprite(){
 		positionX = 0;
 		positionY = 0;
 		velocityX = 0;
 		velocityY = 0;
+	}
+	
+	public void setImage(String filename) {
+		Image i = new Image(filename);
+		image = i;
+		width = i.getWidth();
+		height = i.getHeight();
 	}
 	
 	public void setColor(Color color) {
