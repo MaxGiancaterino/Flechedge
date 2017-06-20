@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Sprite {
+public class Sprite	 {
 	private Image image;
 	private double positionX;
 	private double positionY;
