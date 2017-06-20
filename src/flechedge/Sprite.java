@@ -7,9 +7,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Sprite {
+<<<<<<< HEAD
+	private int positionX;
+	private int positionY;
+=======
 	private Image image;
 	private double positionX;
 	private double positionY;
+>>>>>>> f4544fbd42543caf015633f701d18bfbf8d51c9b
 	private double velocityX;
 	private double velocityY;
 	private double width;
@@ -29,8 +34,10 @@ public class Sprite {
 		height = i.getHeight();
 	}
 	
+	public void setColor(Color color) {
+	}
 	
-	public void setPosition(double x, double y) {
+	public void setPosition(int x, int y) {
 		positionX = x;
 		positionY = y;
 	}
@@ -64,10 +71,6 @@ public class Sprite {
 	public void update(double time) {
 		positionX += velocityX*time;
 		positionY += velocityY*time;
-	}
-	
-	public void render(GraphicsContext gc) {
-		gc.drawImage(image, positionX, positionY);
 	}
 	
 	public String toString() {
