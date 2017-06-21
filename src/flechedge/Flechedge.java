@@ -1,6 +1,7 @@
 package flechedge;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -32,7 +33,7 @@ public class Flechedge extends Application {
 		EventHandler<KeyEvent> keyHandler = new KeyHandler();
 		scene.setOnKeyPressed(keyHandler);
 		scene.setOnKeyReleased(keyHandler);
-		
+
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		Sprite block = new Sprite();
@@ -48,8 +49,9 @@ public class Flechedge extends Application {
 				
 				//movement
 				block.setVelocity(0, 0);
-				if(input.contains("UP")) {
+				if(keyhandler.getKeyInputs().contains("UP")) {
 					block.addVelocity(0, -speed);
+					System.out.println("up");
 				}
 				if(input.contains("DOWN")) {
 					block.addVelocity(0, speed);
@@ -60,6 +62,12 @@ public class Flechedge extends Application {
 				if(input.contains("RIGHT")) {
 					block.addVelocity(speed, 0);
 				}
+				
+				block.update(elapsedTime);
+				
+				//render
+				gc.clearRect(0, 0, 512, 512);
+				block.render(gc);
 				
 			}
 		}.start();

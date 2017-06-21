@@ -18,4 +18,8 @@ public class KeyHandler implements EventHandler<KeyEvent>{
 			keyInputs.remove(e.getText());
 		}
 	}
+	
+	public Set<String> getKeyInputs() {
+		return this.keyInputs;
+	}
 }
