@@ -61,7 +61,6 @@ public class Sprite	 {
 	
 	public void update(double time) {
 		positionX += velocityX*time;
-		System.out.println(positionX+"||"+velocityX*time);
 		positionY += velocityY*time;
 	}
 	

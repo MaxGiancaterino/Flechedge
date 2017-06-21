@@ -24,7 +24,7 @@ public class Flechedge extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
-		stage.setTitle("Flechedge 0.000000000000000000002");
+		stage.setTitle("Flechedge");
 		
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
@@ -34,7 +34,6 @@ public class Flechedge extends Application {
 		
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
-		System.out.println("good");
 		scene.setOnKeyReleased(keyHandler);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
