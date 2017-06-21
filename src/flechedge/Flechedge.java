@@ -43,13 +43,14 @@ public class Flechedge extends Application {
 		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
 		
-		
-		LongValue lastNanoTime = new LongValue(System.nanoTime());
 		new AnimationTimer() {
+			
+			private long lastNanoTime = System.nanoTime();
+			
 			public void handle(long currentNanoTime) {
-				double elapsedTime = (currentNanoTime - lastNanoTime.value)
+				double elapsedTime = (currentNanoTime - lastNanoTime)
 						/1000000000.0;
-				lastNanoTime.value = currentNanoTime;
+				lastNanoTime = currentNanoTime;
 				
 				//movement
 				block.setVelocity(0, 0);
