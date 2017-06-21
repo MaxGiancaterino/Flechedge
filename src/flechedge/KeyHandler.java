@@ -16,11 +16,10 @@ public class KeyHandler implements EventHandler<KeyEvent>{
 	
 	public void handle(KeyEvent e) {
 		if (e.getEventType() == KeyEvent.KEY_PRESSED) {
-			keyInputs.add(e.getText());
-			System.out.println(e.getText());
+			keyInputs.add(e.getCode().toString());
 		}
 		if (e.getEventType() == KeyEvent.KEY_RELEASED) {
-			keyInputs.remove(e.getText());
+			keyInputs.remove(e.getCode().toString());
 		}
 	}
 	

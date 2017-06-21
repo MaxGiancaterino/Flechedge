@@ -34,6 +34,7 @@ public class Flechedge extends Application {
 		
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
+		System.out.println("good");
 		scene.setOnKeyReleased(keyHandler);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -46,14 +47,14 @@ public class Flechedge extends Application {
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 		new AnimationTimer() {
 			public void handle(long currentNanoTime) {
-				double elapsedTime = (currentNanoTime-lastNanoTime.value)/1000000000;
+				double elapsedTime = (currentNanoTime - lastNanoTime.value)
+						/1000000000.0;
 				lastNanoTime.value = currentNanoTime;
 				
 				//movement
 				block.setVelocity(0, 0);
 				if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
-					System.out.println("up");
 				}
 				if(keyInputs.contains("DOWN")) {
 					block.addVelocity(0, speed);
