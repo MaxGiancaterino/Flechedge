@@ -1,6 +1,7 @@
 package flechedge;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import javafx.animation.AnimationTimer;
@@ -23,14 +24,15 @@ public class Flechedge extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
+		stage.setTitle("Flechedge 0.000000000000000000002");
 		
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
 		
 		
-		ArrayList<String> input = new ArrayList<String>();
+		Set<String> keyInputs = new HashSet<String>();
 		
-		EventHandler<KeyEvent> keyHandler = new KeyHandler();
+		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
 		scene.setOnKeyReleased(keyHandler);
 
@@ -49,17 +51,17 @@ public class Flechedge extends Application {
 				
 				//movement
 				block.setVelocity(0, 0);
-				if(keyHandler.getKeyInputs().contains("UP")) {
+				if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
 					System.out.println("up");
 				}
-				if(input.contains("DOWN")) {
+				if(keyInputs.contains("DOWN")) {
 					block.addVelocity(0, speed);
 				}
-				if(input.contains("LEFT")) {
+				if(keyInputs.contains("LEFT")) {
 					block.addVelocity(-speed, 0);
 				}
-				if(input.contains("RIGHT")) {
+				if(keyInputs.contains("RIGHT")) {
 					block.addVelocity(speed, 0);
 				}
 				

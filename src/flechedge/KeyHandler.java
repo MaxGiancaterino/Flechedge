@@ -10,16 +10,19 @@ public class KeyHandler implements EventHandler<KeyEvent>{
 	
 	private Set<String> keyInputs = new HashSet<String>();  
 	
+	public KeyHandler(Set<String> keyInputs) {
+		this.keyInputs = keyInputs;
+	}
+	
 	public void handle(KeyEvent e) {
 		if (e.getEventType() == KeyEvent.KEY_PRESSED) {
 			keyInputs.add(e.getText());
+			System.out.println(e.getText());
 		}
 		if (e.getEventType() == KeyEvent.KEY_RELEASED) {
 			keyInputs.remove(e.getText());
 		}
 	}
 	
-	public Set<String> getKeyInputs() {
-		return this.keyInputs;
-	}
+	
 }
