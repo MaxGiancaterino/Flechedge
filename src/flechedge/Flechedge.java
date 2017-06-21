@@ -49,7 +49,7 @@ public class Flechedge extends Application {
 				
 				//movement
 				block.setVelocity(0, 0);
-				if(keyhandler.getKeyInputs().contains("UP")) {
+				if(keyHandler.getKeyInputs().contains("UP")) {
 					block.addVelocity(0, -speed);
 					System.out.println("up");
 				}
