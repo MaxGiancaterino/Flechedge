@@ -1,7 +1,8 @@
 package flechedge;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javafx.animation.AnimationTimer;
@@ -20,6 +21,7 @@ public class Flechedge extends Application {
 	public double speed = 100;
 	
 	public void start(Stage stage) throws Exception {
+		//set up scene
 		Group root = new Group();
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
@@ -29,18 +31,35 @@ public class Flechedge extends Application {
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
 		
+		//makes map between basic controls and custom controls
+		Map<String, String> keyMap = new HashMap<String, String>();
+		keyMap.put("p1Mod", "W");
+		keyMap.put("p1Ret", "A");
+		keyMap.put("p1Par", "S");
+		keyMap.put("p1Adv", "D");
+		keyMap.put("p1High", "C");
+		keyMap.put("p1Mid", "V");
+		keyMap.put("p1Low", "B");
+		keyMap.put("p1Ext", "SPACE");
+		keyMap.put("p1Throw", "F");
 		
+		
+		
+		//key handler
 		Set<String> keyInputs = new HashSet<String>();
-		
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
 		scene.setOnKeyReleased(keyHandler);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
+		//create sprites
 		Sprite block = new Sprite();
 		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
+		
+		//create the command parser
+		CommandParser parser = new CommandParser(block, speed, keyInputs, keyMap);
 		
 		new AnimationTimer() {
 			
@@ -51,9 +70,10 @@ public class Flechedge extends Application {
 						/1000000000.0;
 				lastNanoTime = currentNanoTime;
 				
-				//movement
+				//movement logic
 				block.setVelocity(0, 0);
-				if(keyInputs.contains("UP")) {
+				parser.parse();
+				/*if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
 				}
 				if(keyInputs.contains("DOWN")) {
@@ -65,7 +85,7 @@ public class Flechedge extends Application {
 				if(keyInputs.contains("RIGHT")) {
 					block.addVelocity(speed, 0);
 				}
-				
+				*/
 				block.update(elapsedTime);
 				
 				//render
