@@ -52,16 +52,16 @@ public class Sprite	 {
 	}
 	
 	public double getVX() {
-		return this.velocityX;
+		return velocityX;
 	}
 	
 	public double getVY() {
-		return this.velocityY;
+		return velocityY;
 	}
 	
 	public void update(double time) {
-		positionX += velocityX*time;
-		positionY += velocityY*time;
+		positionX += velocityX * time;
+		positionY += velocityY * time;
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -69,7 +69,7 @@ public class Sprite	 {
 	}
 	
 	public Rectangle2D getBoundary() {
-		return new Rectangle2D(positionX,positionY,width,height);
+		return new Rectangle2D(positionX, positionY, width, height);
 	}
 	
 	public boolean intersects(Sprite s) {
