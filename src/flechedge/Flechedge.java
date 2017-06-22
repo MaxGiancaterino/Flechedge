@@ -1,10 +1,11 @@
 package flechedge;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import flechedge.CommandParser.BaseCommands;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -32,16 +33,16 @@ public class Flechedge extends Application {
 		root.getChildren().add(canvas);
 		
 		//makes map between basic controls and custom controls
-		Map<String, String> keyMap = new HashMap<String, String>();
-		keyMap.put("p1Mod", "W");
-		keyMap.put("p1Ret", "A");
-		keyMap.put("p1Par", "S");
-		keyMap.put("p1Adv", "D");
-		keyMap.put("p1High", "C");
-		keyMap.put("p1Mid", "V");
-		keyMap.put("p1Low", "B");
-		keyMap.put("p1Ext", "SPACE");
-		keyMap.put("p1Throw", "F");
+		Map<BaseCommands, String> keyMap = new EnumMap<>(BaseCommands.class);
+		keyMap.put(BaseCommands.P1_MOD, "W");
+		keyMap.put(BaseCommands.P1_RET, "A");
+		keyMap.put(BaseCommands.P1_PAR, "S");
+		keyMap.put(BaseCommands.P1_ADV, "D");
+		keyMap.put(BaseCommands.P1_HIGH, "C");
+		keyMap.put(BaseCommands.P1_MID, "V");
+		keyMap.put(BaseCommands.P1_LOW, "B");
+		keyMap.put(BaseCommands.P1_EXT, "SPACE");
+		keyMap.put(BaseCommands.P1_THROW, "F");
 		
 		
 		
