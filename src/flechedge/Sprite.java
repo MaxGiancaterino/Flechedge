@@ -77,7 +77,7 @@ public class Sprite	 {
 	}
 	
 	public void lunge() {
-		positionX += 50;
+		positionX += 20;
 	}
 	
 	public String toString() {
