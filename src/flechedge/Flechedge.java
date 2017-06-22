@@ -1,7 +1,9 @@
 package flechedge;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javafx.animation.AnimationTimer;
@@ -29,9 +31,19 @@ public class Flechedge extends Application {
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
 		
+		Map<String, String> keyMap = new HashMap<String, String>();
+		keyMap.put("p1Mod", "W");
+		keyMap.put("p1Ret", "A");
+		keyMap.put("p1Par", "S");
+		keyMap.put("p1Adv", "D");
+		keyMap.put("p1High", "C");
+		keyMap.put("p1Mid", "V");
+		keyMap.put("p1Low", "B");
+		keyMap.put("p1Ext", "SPACE");
+		keyMap.put("p1Throw", "F");
+		
 		
 		Set<String> keyInputs = new HashSet<String>();
-		
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
 		scene.setOnKeyReleased(keyHandler);
