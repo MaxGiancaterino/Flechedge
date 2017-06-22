@@ -76,6 +76,10 @@ public class Sprite	 {
 		return s.getBoundary().intersects(this.getBoundary());
 	}
 	
+	public void lunge() {
+		positionX += 50;
+	}
+	
 	public String toString() {
 		return "Position: [" +positionX+"c" +positionY+"]" + "Velocity: [" +
 	velocityX +","+velocityY+"]";
