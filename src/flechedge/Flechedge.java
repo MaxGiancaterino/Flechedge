@@ -21,6 +21,7 @@ public class Flechedge extends Application {
 	public double speed = 100;
 	
 	public void start(Stage stage) throws Exception {
+		//set up scene
 		Group root = new Group();
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
@@ -30,6 +31,7 @@ public class Flechedge extends Application {
 		Canvas canvas = new Canvas(512, 512);
 		root.getChildren().add(canvas);
 		
+		//makes map between basic controls and custom controls
 		Map<String, String> keyMap = new HashMap<String, String>();
 		keyMap.put("p1Mod", "W");
 		keyMap.put("p1Ret", "A");
@@ -43,7 +45,7 @@ public class Flechedge extends Application {
 		
 		
 		
-		
+		//key handler
 		Set<String> keyInputs = new HashSet<String>();
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
@@ -51,11 +53,14 @@ public class Flechedge extends Application {
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
+		//create sprites
 		Sprite block = new Sprite();
 		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
 		
+		//create the command parser
 		CommandParser parser = new CommandParser(block, speed, keyInputs, keyMap);
+		
 		new AnimationTimer() {
 			
 			private long lastNanoTime = System.nanoTime();
@@ -65,7 +70,7 @@ public class Flechedge extends Application {
 						/1000000000.0;
 				lastNanoTime = currentNanoTime;
 				
-				//movement
+				//movement logic
 				block.setVelocity(0, 0);
 				parser.parse();
 				/*if(keyInputs.contains("UP")) {
