@@ -24,6 +24,7 @@ public class CommandParser {
 	}
 	
 	public void parse() {
+
 		if(keyInputs.contains(keyMap.get(BaseCommands.P1_MOD))) {
 			p1.addVelocity(0, -speed);
 		}
