@@ -42,6 +42,8 @@ public class Flechedge extends Application {
 		keyMap.put("p1Throw", "F");
 		
 		
+		
+		
 		Set<String> keyInputs = new HashSet<String>();
 		EventHandler<KeyEvent> keyHandler = new KeyHandler(keyInputs);
 		scene.setOnKeyPressed(keyHandler);
@@ -53,6 +55,7 @@ public class Flechedge extends Application {
 		block.setImage("Sprites/Rectangle.png");
 		block.render(gc);
 		
+		CommandParser parser = new CommandParser(block, speed, keyInputs, keyMap);
 		new AnimationTimer() {
 			
 			private long lastNanoTime = System.nanoTime();
@@ -64,7 +67,8 @@ public class Flechedge extends Application {
 				
 				//movement
 				block.setVelocity(0, 0);
-				if(keyInputs.contains("UP")) {
+				parser.parse();
+				/*if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
 				}
 				if(keyInputs.contains("DOWN")) {
@@ -76,7 +80,7 @@ public class Flechedge extends Application {
 				if(keyInputs.contains("RIGHT")) {
 					block.addVelocity(speed, 0);
 				}
-				
+				*/
 				block.update(elapsedTime);
 				
 				//render
