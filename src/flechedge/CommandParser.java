@@ -20,12 +20,9 @@ public class CommandParser {
 	}
 	
 	public void parse() {
-<<<<<<< HEAD
-		if(keyInputs.contains("UP")) {
-=======
+
 		if(keyInputs.contains(keyMap.get("p1Mod"))) {
 			p1.addVelocity(0, -speed);
->>>>>>> a832af573765bd5832b929802b2ba4ed2d147eae
 		}
 		if(keyInputs.contains(keyMap.get("p1Ret"))) {
 			p1.addVelocity(-speed, 0);
