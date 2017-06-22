@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class CommandParser {
+	
 	private Set<String> keyInputs = new HashSet<String>();
 	private Map<String, String> keyMap = new HashMap<String, String>();
 	private Sprite p1 = new Sprite();
@@ -19,8 +20,12 @@ public class CommandParser {
 	}
 	
 	public void parse() {
+<<<<<<< HEAD
+		if(keyInputs.contains("UP")) {
+=======
 		if(keyInputs.contains(keyMap.get("p1Mod"))) {
 			p1.addVelocity(0, -speed);
+>>>>>>> a832af573765bd5832b929802b2ba4ed2d147eae
 		}
 		if(keyInputs.contains(keyMap.get("p1Ret"))) {
 			p1.addVelocity(-speed, 0);
