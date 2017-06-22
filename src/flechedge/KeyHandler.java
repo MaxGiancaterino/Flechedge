@@ -17,6 +17,7 @@ public class KeyHandler implements EventHandler<KeyEvent>{
 	public void handle(KeyEvent e) {
 		if (e.getEventType() == KeyEvent.KEY_PRESSED) {
 			keyInputs.add(e.getCode().toString());
+			System.out.println(e.getCode());
 		}
 		if (e.getEventType() == KeyEvent.KEY_RELEASED) {
 			keyInputs.remove(e.getCode().toString());

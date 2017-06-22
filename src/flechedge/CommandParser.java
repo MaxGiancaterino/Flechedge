@@ -23,5 +23,17 @@ public class CommandParser {
 		if(keyInputs.contains("RIGHT")) {
 			
 		}
+		if(keyInputs.contains("QUOTE")) {
+			
+		}
+		if(keyInputs.contains("SEMICOLON")) {
+			
+		}
+		if(keyInputs.contains("L")) {
+			
+		}
+		if(keyInputs.contains("CONTROL")) {
+			
+		}
 	}
 }
