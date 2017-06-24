@@ -17,15 +17,15 @@ public class Blade extends Sprite {
 	}
 	
 	public void high() {
-		setPosition(getX(), 425);
+		setPosition(getX(), 400);
 	}
 	
 	public void mid() {
-		setPosition(getX(), 450);
+		setPosition(getX(), 425);
 	}
 	
 	public void low() {
-		setPosition(getX(), 475);
+		setPosition(getX(), 450);
 	}
 	
 }

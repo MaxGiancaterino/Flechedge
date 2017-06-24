@@ -83,7 +83,7 @@ public class CommandParser {
 		if(keyInputs.contains(keyMap.get(BaseCommands.P2_MID))) {
 			b2.mid();
 		}
-		if(keyInputs.contains(keyMap.get(BaseCommands.P1_LOW))) {
+		if(keyInputs.contains(keyMap.get(BaseCommands.P2_LOW))) {
 			b2.low();
 		}
 		if(keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {

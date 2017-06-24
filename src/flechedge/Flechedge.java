@@ -124,6 +124,9 @@ public class Flechedge extends Application {
 				if(p1AttachBlade) {
 					b1.setPosition(p1.getX()+60, b1.getY());
 				}
+				if(p2AttachBlade) {
+					b2.setPosition(p2.getX()-160, b2.getY());
+				}
 
 				p1.update(elapsedTime);
 				b1.update(elapsedTime);

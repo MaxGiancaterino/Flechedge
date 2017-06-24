@@ -17,6 +17,6 @@ public class Duelist extends Sprite{
 	}
 	
 	public void lunge() {
-		this.addPosition(20, 0);
+		this.addPosition(20*direction, 0);
 	}
 }
