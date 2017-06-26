@@ -1,48 +1,33 @@
 package flechedge;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-
 public abstract class Sprite	 {
 	private Image image;
-	private double positionX;
-	private double positionY;
-	private double velocityX;
-	private double velocityY;
+	private double positionX = 0;
+	private double positionY = 0;
+	private double velocityX = 0;
+	private double velocityY = 0;
 	private double width;
 	private double height;
 	
 	public Sprite(String filename, double reqWidth, double reqHeight){
-		image = new Image(filename);
-		width = image.getWidth();
-		height = image.getHeight();
-		
-		positionX = 0;
-		positionY = 0;
-		velocityX = 0;
-		velocityY = 0;
+		image = new Image(filename, reqWidth, reqHeight, true, true);
+		width = reqWidth;
+		height = reqHeight;
 	}
 	
 	public Sprite(String filename){
 		image = new Image(filename);
 		width = image.getWidth();
 		height = image.getHeight();
-		
-		positionX = 0;
-		positionY = 0;
-		velocityX = 0;
-		velocityY = 0;
 	}
 	
 	
 	public void setPosition(double x, double y) {
 		positionX = x;
 		positionY = y;
-	}
-	
-	public void blah() {
 	}
 	
 	public void addPosition(double x, double y) {
@@ -54,7 +39,6 @@ public abstract class Sprite	 {
 		velocityX = x;
 		velocityY = y;
 	}
-	
 	
 	public void addVelocity(double x, double y) {
 		velocityX += x;
