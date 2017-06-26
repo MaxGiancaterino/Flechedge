@@ -14,6 +14,17 @@ public abstract class Sprite	 {
 	private double width;
 	private double height;
 	
+	public Sprite(String filename, double reqWidth, double reqHeight){
+		image = new Image(filename);
+		width = image.getWidth();
+		height = image.getHeight();
+		
+		positionX = 0;
+		positionY = 0;
+		velocityX = 0;
+		velocityY = 0;
+	}
+	
 	public Sprite(String filename){
 		image = new Image(filename);
 		width = image.getWidth();
@@ -29,6 +40,9 @@ public abstract class Sprite	 {
 	public void setPosition(double x, double y) {
 		positionX = x;
 		positionY = y;
+	}
+	
+	public void blah() {
 	}
 	
 	public void addPosition(double x, double y) {
