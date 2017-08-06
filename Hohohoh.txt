@@ -1,1 +1,5 @@
 Bonjour
+Duelist sprite box
+Width: 219 px
+Height: 200 px
+Floor: 187 px
