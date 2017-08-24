@@ -18,6 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -72,12 +73,18 @@ public class Flechedge extends Application {
 		scene.setOnKeyReleased(keyHandler);
 
 		//media player
-		/*URL musicFile = getClass().getResource("Audio/Flechedge_Theme.mp3");
-		Media media = new Media(musicFile.toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		File file = new File("src\\Audio\\Flechedge_Theme.mp3");
+		String fileString = file.toURI().toString();
+		Media media = new Media(fileString); 
+		final MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		mediaPlayer.setAutoPlay(true);
+		MediaView mediaView = new MediaView(mediaPlayer);
+		root.getChildren().add(mediaView);
+		
 		mediaPlayer.play();
-		*/
-		//this is ridic
+		
+		//this is no longer ridic
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
