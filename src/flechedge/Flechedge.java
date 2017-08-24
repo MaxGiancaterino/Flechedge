@@ -1,5 +1,7 @@
 package flechedge;
 
+import java.io.File;
+import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -14,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -67,6 +71,14 @@ public class Flechedge extends Application {
 		scene.setOnKeyPressed(keyHandler);
 		scene.setOnKeyReleased(keyHandler);
 
+		//media player
+		/*URL musicFile = getClass().getResource("Audio/Flechedge_Theme.mp3");
+		Media media = new Media(musicFile.toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.play();
+		*/
+		//this is ridic
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		//create p1
@@ -78,9 +90,9 @@ public class Flechedge extends Application {
 		Duelist p2 = new Duelist("Sprites/Rectangle.png", -1);
 		p2.setPosition(890, 350);
 		p2.render(gc);
-		Duelist head = new Duelist("Sprites/DuelistHead.gif", 666, 666, 1);
-		head.setPosition(0, 0);
-		head.render(gc);
+		//Duelist head = new Duelist("Sprites/DuelistHead.gif", 666, 666, 1);
+		//head.setPosition(0, 0);
+		//head.render(gc);
 		
 		
 		//create p1 blade
@@ -143,7 +155,7 @@ public class Flechedge extends Application {
 				b1.render(gc);
 				p2.render(gc);
 				b2.render(gc);
-				head.render(gc);
+				//head.render(gc);
 				
 			}
 		}.start();
