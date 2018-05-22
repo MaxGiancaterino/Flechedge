@@ -9,16 +9,18 @@ import javafx.util.Duration;
 public class BetterDuelist extends ImageView {
 	private int direction;
 	private SpriteAnimation midRetAdvance; 
+	private SpriteAnimation midRetRetreat;
 	private SpriteAnimation midLunge;
 	private AtomicBoolean locked = new AtomicBoolean();
-
+	
 	public BetterDuelist(int direction, int x, int y) {
 		this.direction = direction;
 		this.setX(x);
 		this.setY(y);
 		this.setScaleX(direction);
-		midRetAdvance = new SpriteAnimation("Sprites/MidRetAdvance.png", this, new Duration(600), new int[] {0, 0, 13, 13, 0}, 1, 0, 0, 219, 200, direction, locked);
-		midLunge = new SpriteAnimation("Sprites/MidLunge.png", this, new Duration(800), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction, locked);
+		midRetAdvance = new SpriteAnimation("Sprites/MidRetAdvance.png", this, new Duration(500), new int[] {0, 0, 13, 13, 0}, 1, 0, 0, 219, 200, direction, locked);
+		midRetRetreat = new SpriteAnimation("Sprites/MidRetRetreat.png", this, new Duration(500), new int[] {0, 0, -13, -13}, 1, 0, 0, 219, 200, direction, locked);
+		midLunge = new SpriteAnimation("Sprites/MidLunge.png", this, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction, locked);
 	}
 	
 	public void lunge() {
@@ -37,6 +39,11 @@ public class BetterDuelist extends ImageView {
 	}
 	
 	public void retreat() {
+		if(!locked.get()) {
+			locked.set(true);
+			System.out.println("once");
+			midRetRetreat.play();
+		}
 	}
 	
 	public void extend() {
