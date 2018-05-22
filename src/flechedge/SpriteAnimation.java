@@ -1,5 +1,7 @@
 package flechedge;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -19,9 +21,10 @@ public class SpriteAnimation extends Transition {
 	private final int height;
 	private final int direction;
 	private int lastIndex = 0;
+	private AtomicBoolean locked;
 
 	public SpriteAnimation(String filename, BetterDuelist imageView, Duration duration, int[] movement, int columns, 
-		int offsetX, int offsetY, int width, int height, int direction) {
+		int offsetX, int offsetY, int width, int height, int direction, AtomicBoolean locked) {
 		this.imageView = imageView;
 		this.filename = filename;
 		this.movement = movement;
@@ -34,6 +37,7 @@ public class SpriteAnimation extends Transition {
 		this.direction = direction;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
+		this.locked = locked;
 	}
 
 	@Override
@@ -61,6 +65,9 @@ public class SpriteAnimation extends Transition {
 			
 			imageView.setViewport(new Rectangle2D(x, y, width, height));
 			lastIndex = index;
+		}
+		if(k==1){
+			locked.set(false);
 		}
 	}
 }

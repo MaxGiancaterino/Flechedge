@@ -24,7 +24,12 @@ public class CommandParser {
 	}
 
 	public void parse() {
-
+		
+		if (keyInputs.contains((keyMap.get(BaseCommands.P1_ADV)))
+				&& keyInputs.contains((keyMap.get(BaseCommands.P1_EXT)))
+				&& keyInputs.contains((keyMap.get(BaseCommands.P1_MOD)))) {
+			p1.lunge();
+		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_MOD))) {
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_RET))) {
@@ -46,11 +51,6 @@ public class CommandParser {
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_THROW))) {
 
-		}
-		if (keyInputs.contains((keyMap.get(BaseCommands.P1_ADV)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P1_EXT)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P1_MOD)))) {
-			p1.lunge();
 		}
 
 		// p2
