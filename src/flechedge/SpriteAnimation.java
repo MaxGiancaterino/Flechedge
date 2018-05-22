@@ -2,6 +2,7 @@ package flechedge;
 
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -9,18 +10,45 @@ import javafx.util.Duration;
 public class SpriteAnimation extends Transition {
 	
 	private final ImageView imageView;
-	private Image[] frames;
-	
-	public SpriteAnimation (ImageView imageView, Image[] frames, Duration duration) {
+	private final String filename;
+	private final int count;
+	private final int columns;
+	private final int offsetX;
+	private final int offsetY;
+	private final int width;
+	private final int height;
+
+	private int lastIndex;
+
+	public SpriteAnimation(String filename, ImageView imageView, Duration duration, int count, int columns, 
+		int offsetX, int offsetY, int width, int height) {
 		this.imageView = imageView;
-		this.frames = frames;
+		this.filename = filename;
+		this.count = count;
+		this.columns = columns;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.width = width;
+		this.height = height;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
 	}
+
+	@Override
+	public void play() {
+		imageView.setImage(new Image(filename));
+		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+		super.play();
+	}
 	
 	@Override
-	protected void interpolate(double frac) {
-		final int index = (int) frac * (frames.length - 1);
-		imageView.setImage(frames[index]);
+	protected void interpolate(double k) {
+		final int index = Math.min((int) (k * count), count - 1);
+		if (index != lastIndex) {
+			final int x = (index % columns) * width + offsetX;
+			final int y = (index / columns) * height + offsetY;
+			imageView.setViewport(new Rectangle2D(x, y, width, height));
+			lastIndex = index;
+		}
 	}
 }
