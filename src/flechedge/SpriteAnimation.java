@@ -9,33 +9,36 @@ import javafx.util.Duration;
 
 public class SpriteAnimation extends Transition {
 	
-	private final ImageView imageView;
+	private final BetterDuelist imageView;
 	private final String filename;
-	private final int count;
+	private final int[] movement;
 	private final int columns;
 	private final int offsetX;
 	private final int offsetY;
 	private final int width;
 	private final int height;
+	private final int direction;
+	private int lastIndex = 0;
 
-	private int lastIndex;
-
-	public SpriteAnimation(String filename, ImageView imageView, Duration duration, int count, int columns, 
-		int offsetX, int offsetY, int width, int height) {
+	public SpriteAnimation(String filename, BetterDuelist imageView, Duration duration, int[] movement, int columns, 
+		int offsetX, int offsetY, int width, int height, int direction) {
 		this.imageView = imageView;
 		this.filename = filename;
-		this.count = count;
+		this.movement = movement;
 		this.columns = columns;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.width = width;
 		this.height = height;
+		System.out.println("direction: " + direction);
+		this.direction = direction;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
 	}
 
 	@Override
 	public void play() {
+		//System.out.println("called");
 		imageView.setImage(new Image(filename));
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		super.play();
@@ -43,10 +46,19 @@ public class SpriteAnimation extends Transition {
 	
 	@Override
 	protected void interpolate(double k) {
-		final int index = Math.min((int) (k * count), count - 1);
+		final int index = Math.min((int) (k * movement.length), movement.length - 1);
 		if (index != lastIndex) {
-			final int x = (index % columns) * width + offsetX;
-			final int y = (index / columns) * height + offsetY;
+			
+			//x and y of new animation view
+			int x = 0;
+			if (index != 0) {
+				x = (index / columns) * (width + 1) + offsetX; 
+			}
+			final int y = (index % columns) * height + offsetY;
+			
+			//x of imageView
+			imageView.setX(imageView.getX() + (-direction * movement[index]));
+			
 			imageView.setViewport(new Rectangle2D(x, y, width, height));
 			lastIndex = index;
 		}

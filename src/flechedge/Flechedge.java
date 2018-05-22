@@ -31,8 +31,15 @@ public class Flechedge extends Application {
 	
 	
 	public void start(Stage stage) throws Exception {
+		
+		//create p1
+		BetterDuelist p1 = new BetterDuelist(-1, 100, 350);
+		
+		//create p2
+		BetterDuelist p2 = new BetterDuelist(1, 700, 350);
+		
 		//set up scene
-		Group root = new Group();
+		Group root = new Group(p1, p2);
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
@@ -81,39 +88,15 @@ public class Flechedge extends Application {
 		MediaView mediaView = new MediaView(mediaPlayer);
 		root.getChildren().add(mediaView);
 		
+		//play song
 		mediaPlayer.play();
 		
-		//this is no longer ridic
-		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		//create p1
-		Duelist p1 = new Duelist("Sprites/Rectangle.png", 1);
-		p1.setPosition(50, 350);
-		p1.render(gc);
-		
-		//create p2
-		Duelist p2 = new Duelist("Sprites/DuelistStand.png", -1);
-		p2.setPosition(890, 350);
-		p2.render(gc);
-		//Duelist head = new Duelist("Sprites/DuelistHead.gif", 666, 666, 1);
-		//head.setPosition(0, 0);
-		//head.render(gc);
-		
-		
-		//create p1 blade
-		Blade b1 = new Blade("Sprites/Blade.png", 1);
-		b1.setPosition(110, 400);
-		b1.render(gc);
-		
-		//create p2 blade
-		Blade b2 = new Blade("Sprites/Blade.png", -1);
-		b2.setPosition(730, 400);
-		b2.render(gc);
-		
-		
+	
+		gc.setFill(Color.BURLYWOOD);
+		gc.fillRoundRect(0, 536, 1000, 64, 0, 0);
 		//create the command parser
-		CommandParser parser = new CommandParser(p1, b1, p2, b2, keyInputs, keyMap);
+		CommandParser parser = new CommandParser(p1, p2, keyInputs, keyMap);
 		
 		new AnimationTimer() {
 			
@@ -125,11 +108,8 @@ public class Flechedge extends Application {
 				lastNanoTime = currentNanoTime;
 				
 				//movement logic
-				p1.setVelocity(0, 0);
-				b1.setVelocity(0, 0);
-				p2.setVelocity(0, 0);
-				b2.setVelocity(0, 0);
 				parser.parse();
+				
 				/*if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
 				}
@@ -142,27 +122,7 @@ public class Flechedge extends Application {
 				if(keyInputs.contains("RIGHT")) {
 					block.addVelocity(speed, 0);
 				}
-				*/
-				if(p1AttachBlade) {
-					b1.setPosition(p1.getX()+60, b1.getY());
-				}
-				if(p2AttachBlade) {
-					b2.setPosition(p2.getX()-160, b2.getY());
-				}
-
-				p1.update(elapsedTime);
-				b1.update(elapsedTime);
-				p2.update(elapsedTime);
-				b2.update(elapsedTime);
-
-				//render
-				gc.clearRect(0, 0, windowWidth, windowHeight);
-				p1.render(gc);
-				b1.render(gc);
-				p2.render(gc);
-				b2.render(gc);
-				//head.render(gc);
-				
+				*/				
 			}
 		}.start();
 		stage.show();
