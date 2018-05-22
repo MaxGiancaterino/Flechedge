@@ -77,11 +77,7 @@ public abstract class Sprite	 {
 	public boolean intersects(Sprite s) {
 		return s.getBoundary().intersects(this.getBoundary());
 	}
-	
-	public void lunge() {
-		positionX += 20;
-	}
-	
+		
 	public String toString() {
 		return "Position: [" +positionX+"c" +positionY+"]" + "Velocity: [" +
 	velocityX +","+velocityY+"]";
