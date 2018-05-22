@@ -93,7 +93,7 @@ public class Flechedge extends Application {
 		p1.render(gc);
 		
 		//create p2
-		Duelist p2 = new Duelist("Sprites/Rectangle.png", -1);
+		Duelist p2 = new Duelist("Sprites/DuelistStand.png", -1);
 		p2.setPosition(890, 350);
 		p2.render(gc);
 		//Duelist head = new Duelist("Sprites/DuelistHead.gif", 666, 666, 1);
