@@ -35,7 +35,6 @@ public class SpriteAnimation extends Transition {
 		this.width = width;
 		this.height = height;
 		this.duelist = duelist;
-		System.out.println("direction: " + direction);
 		this.direction = direction;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
@@ -44,9 +43,8 @@ public class SpriteAnimation extends Transition {
 
 	@Override
 	public void play() {
-		//System.out.println("called");
 		imageView.setImage(new Image(filename));
-		System.out.println(imageView.getX() + ","+ imageView.getY());
+		//System.out.println(imageView.getX() + ","+ imageView.getY());
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		super.play();
 	}
@@ -62,12 +60,11 @@ public class SpriteAnimation extends Transition {
 				x = (index / columns) * (width + 1) + offsetX; 
 			}
 			final int y = (index % columns) * height + offsetY;
-			
-			//<x of imageView>
-			duelist.setX(imageView.getX() + (-direction * movement[index]));
-			//</x of imageView>
-			
 			imageView.setViewport(new Rectangle2D(x, y, width, height));
+			
+			//x of imageView
+			duelist.setX(imageView.getX() + (-direction * movement[index]));
+			
 			lastIndex = index;
 		}
 		if(k==1){
