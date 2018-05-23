@@ -41,10 +41,13 @@ public class CommandParser {
 			p1.advance();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_HIGH))) {
+			p1.highRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_MID))) {
+			p1.midRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_LOW))) {
+			p1.lowRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_EXT))) {
 
@@ -66,10 +69,13 @@ public class CommandParser {
 			p2.advance();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_HIGH))) {
+			p2.highRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_MID))) {
+			p2.midRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_LOW))) {
+			p2.lowRet();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
 

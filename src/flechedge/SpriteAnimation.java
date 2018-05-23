@@ -11,7 +11,7 @@ import javafx.util.Duration;
 
 public class SpriteAnimation extends Transition {
 	
-	private final Duelist imageView;
+	private final ImageView imageView;
 	private final String filename;
 	private final int[] movement;
 	private final int columns;
@@ -20,10 +20,11 @@ public class SpriteAnimation extends Transition {
 	private final int width;
 	private final int height;
 	private final int direction;
+	private Duelist duelist;
 	private int lastIndex = 0;
 	private AtomicBoolean locked;
 
-	public SpriteAnimation(String filename, Duelist imageView, Duration duration, int[] movement, int columns, 
+	public SpriteAnimation(String filename, Duelist duelist, ImageView imageView, Duration duration, int[] movement, int columns, 
 		int offsetX, int offsetY, int width, int height, int direction, AtomicBoolean locked) {
 		this.imageView = imageView;
 		this.filename = filename;
@@ -33,6 +34,7 @@ public class SpriteAnimation extends Transition {
 		this.offsetY = offsetY;
 		this.width = width;
 		this.height = height;
+		this.duelist = duelist;
 		System.out.println("direction: " + direction);
 		this.direction = direction;
 		setCycleDuration(duration);
@@ -44,6 +46,7 @@ public class SpriteAnimation extends Transition {
 	public void play() {
 		//System.out.println("called");
 		imageView.setImage(new Image(filename));
+		System.out.println(imageView.getX() + ","+ imageView.getY());
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		super.play();
 	}
@@ -60,8 +63,9 @@ public class SpriteAnimation extends Transition {
 			}
 			final int y = (index % columns) * height + offsetY;
 			
-			//x of imageView
-			imageView.setX(imageView.getX() + (-direction * movement[index]));
+			//<x of imageView>
+			duelist.setX(imageView.getX() + (-direction * movement[index]));
+			//</x of imageView>
 			
 			imageView.setViewport(new Rectangle2D(x, y, width, height));
 			lastIndex = index;
