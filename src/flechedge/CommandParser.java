@@ -13,10 +13,10 @@ public class CommandParser {
 
 	private Set<String> keyInputs = new HashSet<String>();
 	private Map<BaseCommands, String> keyMap = new EnumMap<BaseCommands, String>(BaseCommands.class);
-	private BetterDuelist p1;
-	private BetterDuelist p2;
+	private Duelist p1;
+	private Duelist p2;
 
-	public CommandParser(BetterDuelist p1, BetterDuelist p2, Set<String> keyInputs, Map<BaseCommands, String> keyMap) {
+	public CommandParser(Duelist p1, Duelist p2, Set<String> keyInputs, Map<BaseCommands, String> keyMap) {
 		this.keyInputs = keyInputs;
 		this.keyMap = keyMap;
 		this.p1 = p1;

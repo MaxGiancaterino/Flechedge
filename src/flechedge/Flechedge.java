@@ -33,10 +33,10 @@ public class Flechedge extends Application {
 	public void start(Stage stage) throws Exception {
 		
 		//create p1
-		BetterDuelist p1 = new BetterDuelist(-1, 100, 350);
+		Duelist p1 = new Duelist(-1, 100, 350);
 		
 		//create p2
-		BetterDuelist p2 = new BetterDuelist(1, 700, 350);
+		Duelist p2 = new Duelist(1, 700, 350);
 		
 		//set up scene
 		Group root = new Group(p1, p2);

@@ -11,7 +11,7 @@ import javafx.util.Duration;
 
 public class SpriteAnimation extends Transition {
 	
-	private final BetterDuelist imageView;
+	private final Duelist imageView;
 	private final String filename;
 	private final int[] movement;
 	private final int columns;
@@ -23,7 +23,7 @@ public class SpriteAnimation extends Transition {
 	private int lastIndex = 0;
 	private AtomicBoolean locked;
 
-	public SpriteAnimation(String filename, BetterDuelist imageView, Duration duration, int[] movement, int columns, 
+	public SpriteAnimation(String filename, Duelist imageView, Duration duration, int[] movement, int columns, 
 		int offsetX, int offsetY, int width, int height, int direction, AtomicBoolean locked) {
 		this.imageView = imageView;
 		this.filename = filename;
