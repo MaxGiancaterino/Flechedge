@@ -11,30 +11,38 @@ public class Duelist extends Group {
 	//Move: can extend, change lines, and parry
 	//Ready: all the things
 	//Lunge: literally nothing
+	//Lunged: can recover, change lines
 	public enum State {
-		MOVE, READY, LUNGE,      
+		MOVE, READY, LUNGE, LUNGED, RECOVER; 
 	}
+	private State state;
 	private ImageView top = new ImageView();
 	private ImageView bot = new ImageView();
 	private int direction;
-	private SpriteAnimation retreat, advance, midRet, highRet, lowRet, midRetLunge, midRecover; 
+	private SpriteAnimation retreat, advance, midRet, highRet, lowRet, midExt, highExt, lowExt, lunge, recover;
+	private AtomicBoolean[] locks = new AtomicBoolean[] {};
 	private AtomicBoolean locked = new AtomicBoolean();
 	
 	public Duelist(int direction, int x, int y) {
+		state = State.READY;
 		this.direction = direction;
 		this.setX(x);
 		this.setY(y);
 		top.setScaleX(direction);
 		bot.setScaleX(direction);
 		this.getChildren().addAll(top, bot);
-		highRet = new SpriteAnimation("Sprites/HighRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction, locked);
-		midRet = new SpriteAnimation("Sprites/MidRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction, locked);
-		lowRet = new SpriteAnimation("Sprites/LowRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction, locked);
+		//arms
+		highRet = new SpriteAnimation("Sprites/HighRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		midRet = new SpriteAnimation("Sprites/MidRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		lowRet = new SpriteAnimation("Sprites/LowRetAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		highExt = new SpriteAnimation("Sprites/HighExtAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		midExt = new SpriteAnimation("Sprites/MidExtAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		lowExt = new SpriteAnimation("Sprites/LowExtAdvance.png", this, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
 		//legs
-		advance = new SpriteAnimation("Sprites/MidRetAdvance.png", this, bot, new Duration(500), new int[] {0, 0, 13, 13, 0}, 1, 0, 100, 219, 100, direction, locked);
-		retreat = new SpriteAnimation("Sprites/Retreat.png", this, bot, new Duration(500), new int[] {0, 0, -13, -13}, 1, 0, 100, 219, 100, direction, locked);
-		midRetLunge = new SpriteAnimation("Sprites/MidLunge.png", this, top, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction, locked);
-		midRecover = new SpriteAnimation("Sprites/MidRecover.png", this, top, new Duration(650), new int[] {0, 0, -30, -12}, 1, 0, 0, 219, 200, direction, locked);
+		advance = new SpriteAnimation("Sprites/MidRetAdvance.png", this, bot, new Duration(500), new int[] {0, 0, 13, 13, 0}, 1, 0, 100, 219, 100, direction);
+		retreat = new SpriteAnimation("Sprites/Retreat.png", this, bot, new Duration(500), new int[] {0, 0, -13, -13}, 1, 0, 100, 219, 100, direction);
+		lunge = new SpriteAnimation("Sprites/MidLunge.png", this, top, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction);
+		recover = new SpriteAnimation("Sprites/MidRecover.png", this, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
 	}
 	
 	public void setX(double x) {
@@ -47,40 +55,64 @@ public class Duelist extends Group {
 		bot.setY(y+100);
 	}
 	
+	public void setState(State state) {
+		this.state = state;
+	}
+	public State getState() {
+		return state;
+	}
+	
 	public void highRet() {
-		highRet.play();
+		if(state != State.LUNGE && state != State.RECOVER) {
+			highRet.play();
+		}
 	}
 	
 	public void midRet() {
-		midRet.play();
+		if(state != State.LUNGE && state != State.RECOVER) {
+			midRet.play();
+		}
 	}
 	
 	public void lowRet() {
-		lowRet.play();
+		if(state != State.LUNGE && state != State.RECOVER) { 
+			lowRet.play();
+		}
 	}
 	
 	public void lunge() {
-		if(!locked.get()) {
-			locked.set(true);
+		if(state == State.READY) {
+			state = State.LUNGE;
+			//locked.set(true);
 			bot.setVisible(false);
-			midRetLunge.play();
+			lunge.play();
 			System.out.println("LUNGE");
 		}
 	}
 	
+	public void recover() {
+		if(state==State.LUNGED) {
+			state = State.RECOVER;
+			recover.play();
+			System.out.println("RECOVER");
+		}
+	}
+	
 	public void advance() {
-		if(!locked.get()) {
-			locked.set(true);
-			//System.out.println("once");
+		System.out.println("in advance()");
+		if(state == State.READY) {
+			System.out.println("in if(state.READY...");
+			state = State.MOVE;
+			bot.setVisible(true);
 			advance.play();
 			System.out.println("ADVANCE");
 		}
 	}
 	
 	public void retreat() {
-		if(!locked.get()) {
-			locked.set(true);
-			//System.out.println("once");
+		if(state == State.READY) {
+			state = State.MOVE;
+			bot.setVisible(true);
 			retreat.play();
 			System.out.println("RETREAT");
 		}
@@ -88,13 +120,5 @@ public class Duelist extends Group {
 	
 	public void extend() {
 	}
-	
-	public void high() {
-	}
-	
-	public void mid() {
-	}
-	
-	public void low() {
-	}
+
 }

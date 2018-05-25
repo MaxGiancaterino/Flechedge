@@ -22,10 +22,9 @@ public class SpriteAnimation extends Transition {
 	private final int direction;
 	private Duelist duelist;
 	private int lastIndex = 0;
-	private AtomicBoolean locked;
 
 	public SpriteAnimation(String filename, Duelist duelist, ImageView imageView, Duration duration, int[] movement, int columns, 
-		int offsetX, int offsetY, int width, int height, int direction, AtomicBoolean locked) {
+		int offsetX, int offsetY, int width, int height, int direction) {
 		this.imageView = imageView;
 		this.filename = filename;
 		this.movement = movement;
@@ -38,7 +37,6 @@ public class SpriteAnimation extends Transition {
 		this.direction = direction;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
-		this.locked = locked;
 	}
 
 	@Override
@@ -68,7 +66,15 @@ public class SpriteAnimation extends Transition {
 			lastIndex = index;
 		}
 		if(k==1){
-			locked.set(false);
+			if(duelist.getState() == Duelist.State.MOVE) {
+				duelist.setState(Duelist.State.READY);
+			}
+			else if(duelist.getState() == Duelist.State.LUNGE) {
+				duelist.setState(Duelist.State.LUNGED);
+			}
+			else if(duelist.getState() == Duelist.State.RECOVER) {
+				duelist.setState(Duelist.State.READY);
+			}
 		}
 	}
 }
