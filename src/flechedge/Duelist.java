@@ -13,7 +13,7 @@ public class Duelist extends Group {
 	//Lunge: literally nothing
 	//Lunged: can recover, change lines
 	public enum State {
-		MOVE, READY, LUNGE, LUNGED, RECOVER; 
+		MOVE, READY, LUNGE, LUNGED, RECOVER;
 	}
 	private State state;
 	private ImageView top = new ImageView();
