@@ -1,7 +1,6 @@
 package flechedge;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import flechedge.Duelist.States;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -12,6 +11,7 @@ import javafx.util.Duration;
 public class SpriteAnimation extends Transition {
 	
 	private final ImageView imageView;
+	private final States actionType;
 	private final String filename;
 	private final int[] movement;
 	private final int columns;
@@ -23,10 +23,11 @@ public class SpriteAnimation extends Transition {
 	private Duelist duelist;
 	private int lastIndex = 0;
 
-	public SpriteAnimation(String filename, Duelist duelist, ImageView imageView, Duration duration, int[] movement, int columns, 
+	public SpriteAnimation(String filename, Duelist duelist, States actionType, ImageView imageView, Duration duration, int[] movement, int columns, 
 		int offsetX, int offsetY, int width, int height, int direction) {
 		this.imageView = imageView;
 		this.filename = filename;
+		this.actionType = actionType;
 		this.movement = movement;
 		this.columns = columns;
 		this.offsetX = offsetX;
@@ -66,14 +67,11 @@ public class SpriteAnimation extends Transition {
 			lastIndex = index;
 		}
 		if(k==1){
-			if(duelist.getState() == Duelist.State.MOVE) {
-				duelist.setState(Duelist.State.READY);
-			}
-			else if(duelist.getState() == Duelist.State.LUNGE) {
-				duelist.setState(Duelist.State.LUNGED);
-			}
-			else if(duelist.getState() == Duelist.State.RECOVER) {
-				duelist.setState(Duelist.State.READY);
+			//i had to make moveGraph public for this, might be better just to make a getter method in duelist class
+			States nextState = duelist.moveGraph.findNext(actionType);
+			if(nextState != null) {
+				duelist.changeState(actionType, false);
+				duelist.changeState(nextState, true);
 			}
 		}
 	}
