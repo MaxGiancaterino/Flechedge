@@ -24,6 +24,7 @@ public class MoveGraph {
 		armIdleAdj.put(States.ARMMOVE, false);
 		armIdleAdj.put(States.LUNGE, false);
 		armIdleAdj.put(States.FLECHE, false);
+		armIdleAdj.put(States.RECOVER, false);
 		map.put(States.ARMIDLE, armIdleAdj);
 		//ARMMOVE
 		HashMap<States, Boolean> armMoveAdj = new HashMap<States, Boolean>();
@@ -54,6 +55,7 @@ public class MoveGraph {
 		map.put(States.RECOVER, recAdj);
 	}
 	
+	//can you get to checkState from currState?
 	public Boolean containsEdge(States currState, States checkState) {
 		if(map.get(currState).get(checkState) == null) {
 			return false;
@@ -61,6 +63,7 @@ public class MoveGraph {
 		return true;
 	}
 	
+	//can you get to desired "action" from all the states in "state"?
 	public Boolean check(HashMap<States, Boolean> state, States action) {
 		for(HashMap.Entry<States, Boolean> entry : state.entrySet()) {
 			if(entry.getValue()==true && !containsEdge(entry.getKey(), action)) {
@@ -70,6 +73,7 @@ public class MoveGraph {
 		return true;
 	}
 	
+	//what state is automatically next?
 	public States findNext(States state) {
 		for(Map.Entry<States, Boolean> connectedNodes: map.get(state).entrySet()) {
 			if(connectedNodes.getValue()) {

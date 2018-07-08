@@ -67,9 +67,11 @@ public class SpriteAnimation extends Transition {
 			lastIndex = index;
 		}
 		if(k==1){
-			//i had to make moveGraph public for this, might be better just to make a getter method in duelist class
+			//I had to make moveGraph public for this, might be better just to make a getter method in duelist class
 			States nextState = duelist.moveGraph.findNext(actionType);
 			if(nextState != null) {
+				System.out.println("setting past state to false: "+actionType);
+				System.out.println("setting state to next: "+nextState);
 				duelist.changeState(actionType, false);
 				duelist.changeState(nextState, true);
 			}

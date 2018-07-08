@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import flechedge.CommandParser.BaseCommands;
+import flechedge.Duelist.SubStates;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -34,6 +35,7 @@ public class Flechedge extends Application {
 		
 		//create p1
 		Duelist p1 = new Duelist(-1, 100, 350);
+		p1.changeSubState(SubStates.MIDRET, true);
 		
 		//create p2
 		Duelist p2 = new Duelist(1, 700, 350);
@@ -106,7 +108,8 @@ public class Flechedge extends Application {
 				
 				//movement logic
 				parser.parse();
-				
+				//System.out.println(p1.getState());
+				//System.out.println(p1.getSubState());
 				/*if(keyInputs.contains("UP")) {
 					block.addVelocity(0, -speed);
 				}
