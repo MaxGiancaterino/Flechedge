@@ -75,6 +75,9 @@ public class SpriteAnimation extends Transition {
 				duelist.changeState(actionType, false);
 				duelist.changeState(nextState, true);
 			}
+			if(actionType==States.RECOVER) {
+				duelist.playIdle();
+			}
 		}
 	}
 }

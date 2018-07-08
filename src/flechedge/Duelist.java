@@ -29,7 +29,7 @@ public class Duelist extends Group {
 	private ImageView bot = new ImageView();
 	private int direction;
 	private SpriteAnimation retreat, advance, midRet, highRet, lowRet, midExt, highExt, lowExt, lungedHigh, lungedMid, lungedLow, 
-	midRetLunge, highRetLunge, lowRetLunge, highRecover, midRecover, lowRecover;
+	midRetLunge, highRetLunge, lowRetLunge, highRecover, midRecover, lowRecover, botIdle;
 	
 	public Duelist(int direction, int x, int y) {
 		state = new HashMap<States, Boolean>();
@@ -66,19 +66,23 @@ public class Duelist extends Group {
 		highExt = new SpriteAnimation("Sprites/HighExtAdvance.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
 		midExt = new SpriteAnimation("Sprites/MidExtAdvance.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
 		lowExt = new SpriteAnimation("Sprites/LowExtAdvance.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
-		lungedHigh = new SpriteAnimation("Sprites/HighRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
-		lungedMid = new SpriteAnimation("Sprites/MidRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
-		lungedLow = new SpriteAnimation("Sprites/LowRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0,0}, 1, 0, 0, 219, 100, direction);
+		lungedHigh = new SpriteAnimation("Sprites/HighRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0}, 1, 0, 0, 219, 200, direction);
+		lungedMid = new SpriteAnimation("Sprites/MidRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0}, 1, 0, 0, 219, 200, direction);
+		lungedLow = new SpriteAnimation("Sprites/LowRecover.png", this, States.ARMMOVE, top, new Duration(300), new int[] {0}, 1, 0, 0, 219, 200, direction);
 		//legs
 		advance = new SpriteAnimation("Sprites/MidRetAdvance.png", this, States.STEP, bot, new Duration(500), new int[] {0, 0, 13, 13, 0}, 1, 0, 100, 219, 100, direction);
 		retreat = new SpriteAnimation("Sprites/Retreat.png", this, States.STEP, bot, new Duration(500), new int[] {0, 0, -13, -13}, 1, 0, 100, 219, 100, direction);
+		botIdle = new SpriteAnimation("Sprites/Retreat.png", this, States.STEP, bot, new Duration(500), new int[] {0}, 1, 0, 100, 219, 100, direction);
 		//special
 		highRetLunge = new SpriteAnimation("Sprites/HighRetLunge.png", this, States.LUNGE, top, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction);
 		midRetLunge = new SpriteAnimation("Sprites/MidRetLunge.png", this, States.LUNGE, top, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction);
 		lowRetLunge = new SpriteAnimation("Sprites/LowRetLunge.png", this, States.LUNGE, top, new Duration(650), new int[] {0, 0, 78, 30, 0}, 1, 0, 0, 219, 200, direction);
-		//highRecover = 
+		highRecover = new SpriteAnimation("Sprites/HighRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
 		midRecover = new SpriteAnimation("Sprites/MidRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
-		//lowRecover = 
+		lowRecover = new SpriteAnimation("Sprites/LowRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
+		
+		botIdle.play();
+		midRet.play();
 	}
 	
 	public void setX(double x) {
@@ -89,6 +93,20 @@ public class Duelist extends Group {
 	public void setY(double y) {
 		top.setY(y);
 		bot.setY(y+100);
+	}
+	
+	public void playIdle() {
+		bot.setVisible(true);
+		botIdle.play();
+		if(subState.get(SubStates.HIGHRET)) {
+			highRet.play();
+		}
+		else if(subState.get(SubStates.MIDRET)) {
+			midRet.play();
+		}
+		else if(subState.get(SubStates.LOWRET)) {
+			lowRet.play();
+		}
 	}
 	
 	public void changeState(States key, Boolean value) {
@@ -116,15 +134,18 @@ public class Duelist extends Group {
 	//TODO: these line changes need cases for lunged linechange
 	//high retract
 	public void lineChangeHigh() {
-		System.out.println("in lineChangeHigh");
-		if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWRET) || subState.get(SubStates.MIDRET))) {
+		if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && 
+				(subState.get(SubStates.LOWRET) || subState.get(SubStates.MIDRET))) {
+			System.out.println("retHigh");
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
 			subState.put(SubStates.HIGHRET, true);
 			highRet.play();
 		}
-		else if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWEXT) || subState.get(SubStates.MIDEXT))) {
+		else if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && 
+				(subState.get(SubStates.LOWEXT) || subState.get(SubStates.MIDEXT))) {
+			System.out.println("extHigh");
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
@@ -132,6 +153,7 @@ public class Duelist extends Group {
 			highExt.play();
 		}
 		else if(state.get(States.LUNGED) && subMoveGraph.check(subState, SubStates.HIGHEXT)) {
+			System.out.println("lungedHigh");
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE,  false);
@@ -142,14 +164,14 @@ public class Duelist extends Group {
 	
 	public void lineChangeMid() {
 		System.out.println("in lineChangeMid");
-		if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWRET) || subState.get(SubStates.HIGHRET))) {
+		if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWRET) || subState.get(SubStates.HIGHRET))) {
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
 			subState.put(SubStates.MIDRET, true);
 			midRet.play();
 		}
-		else if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWEXT) || subState.get(SubStates.HIGHEXT))) {
+		else if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.LOWEXT) || subState.get(SubStates.HIGHEXT))) {
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
@@ -167,14 +189,14 @@ public class Duelist extends Group {
 	
 	public void lineChangeLow() {
 		System.out.println("in lineChangeLow");
-		if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.MIDRET) || subState.get(SubStates.HIGHRET))) {
+		if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.MIDRET) || subState.get(SubStates.HIGHRET))) {
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
 			subState.put(SubStates.LOWRET, true);
 			lowRet.play();
 		}
-		else if(moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.MIDEXT) || subState.get(SubStates.HIGHEXT))) {
+		else if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && (subState.get(SubStates.MIDEXT) || subState.get(SubStates.HIGHEXT))) {
 			resetSubState();
 			state.put(States.ARMMOVE, true);
 			state.put(States.ARMIDLE, false);
@@ -226,7 +248,7 @@ public class Duelist extends Group {
 		 * but you can change line. ARMMOVE is either type of arm movement, so when retract is (automatically) called, it retracts
 		 * because ARMMOVEs are ok. :(
 		 */
-		if(!state.containsKey(States.LUNGED)) {
+		if(!state.get(States.LUNGED)) {
 			System.out.println("in retract");
 			if(subState.get(SubStates.HIGHEXT)) {
 				if(moveGraph.check(state, States.ARMMOVE) && subMoveGraph.check(subState, SubStates.HIGHRET)) {
@@ -299,12 +321,26 @@ public class Duelist extends Group {
 	
 	//TODO: extension over other lines. recover animation needs to end in extension + worry about setting bot visible
 	public void recover() {
-		if(moveGraph.check(state, States.RECOVER)) {
+		if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.HIGHEXT)) {
+			state.put(States.LUNGED, false);
+			state.put(States.RECOVER, true);
+			resetSubState();
+			subState.put(SubStates.HIGHRET, true);
+			highRecover.play();
+		}
+		else if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.MIDEXT)) {
 			state.put(States.LUNGED, false);
 			state.put(States.RECOVER, true);
 			resetSubState();
 			subState.put(SubStates.MIDRET, true);
 			midRecover.play();
+		}
+		else if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.LOWEXT)) {
+			state.put(States.LUNGED, false);
+			state.put(States.RECOVER, true);
+			resetSubState();
+			subState.put(SubStates.LOWRET, true);
+			lowRecover.play();
 		}
 	}
 	
