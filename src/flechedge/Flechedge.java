@@ -15,6 +15,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -32,6 +34,9 @@ public class Flechedge extends Application {
 	
 	
 	public void start(Stage stage) throws Exception {
+		//make background
+		ImageView background = new ImageView();
+		background.setImage(new Image("Backgrounds/Flechedge_SpaceHanger_V1-1.png"));
 		
 		//create p1
 		Duelist p1 = new Duelist(-1, 100, 350);
@@ -41,7 +46,7 @@ public class Flechedge extends Application {
 		Duelist p2 = new Duelist(1, 700, 350);
 		
 		//set up scene
-		Group root = new Group(p1, p2);
+		Group root = new Group(background, p1, p2);
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
@@ -49,6 +54,7 @@ public class Flechedge extends Application {
 		
 		Canvas canvas = new Canvas(windowWidth, windowHeight);
 		root.getChildren().add(canvas);
+	
 		
 		//makes map between basic controls and custom controls
 		Map<BaseCommands, String> keyMap = new EnumMap<>(BaseCommands.class);
@@ -81,19 +87,16 @@ public class Flechedge extends Application {
 		scene.setOnKeyReleased(keyHandler);
 
 		//media player
-		File file = new File("src\\Audio\\Flechedge_Theme.mp3");
+		File file = new File("src\\Audio\\Flechedge_Space.mp3");
 		String fileString = file.toURI().toString();
 		Media media = new Media(fileString); 
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-		//mediaPlayer.setAutoPlay(true);
+		mediaPlayer.setAutoPlay(true);
 		MediaView mediaView = new MediaView(mediaPlayer);
 		root.getChildren().add(mediaView);
 		
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-	
-		gc.setFill(Color.BURLYWOOD);
-		gc.fillRoundRect(0, 536, 1000, 64, 0, 0);
+		
 		//create the command parser
 		CommandParser parser = new CommandParser(p1, p2, keyInputs, keyMap);
 		

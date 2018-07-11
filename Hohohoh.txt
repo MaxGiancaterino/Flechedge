@@ -5,11 +5,9 @@ Height: 200 px
 Floor: 187 px
 
 To do: Easy to hard 1-5
--Fix retreat animation [1]
 -Add all animations to duelist [1]
 -Animate blade [2]
 -Sort out hitboxes [2]
--Line change while moving [3]
 -Forgiving key entry (buffering?) [4]
 -Game mechanics [2]
 -Animate game mechanics [2.5]
