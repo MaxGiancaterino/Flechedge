@@ -63,7 +63,7 @@ public class CommandParser {
 
 		// p2
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_MOD))) {
-
+			p2.lunge();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_RET))) {
 			p2.retreat();
@@ -84,15 +84,10 @@ public class CommandParser {
 			p2.lineChangeLow();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
-
+			p2.extend();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_THROW))) {
 
-		}
-		if (keyInputs.contains((keyMap.get(BaseCommands.P2_ADV)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P2_EXT)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P2_MOD)))) {
-			p2.lunge();
 		}
 	}
 }

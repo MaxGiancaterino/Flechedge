@@ -17,6 +17,7 @@ public class MoveGraph {
 		legIdleAdj.put(States.STEP, false);
 		legIdleAdj.put(States.LUNGE, false); 
 		legIdleAdj.put(States.FLECHE, false);
+		legIdleAdj.put(States.RECOVER, false);
 		map.put(States.LEGIDLE, legIdleAdj);
 		//ARMIDLE
 		HashMap<States, Boolean> armIdleAdj = new HashMap<States, Boolean>();

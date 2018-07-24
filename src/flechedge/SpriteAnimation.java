@@ -43,7 +43,6 @@ public class SpriteAnimation extends Transition {
 	@Override
 	public void play() {
 		imageView.setImage(new Image(filename));
-		//System.out.println(imageView.getX() + ","+ imageView.getY());
 		imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		super.play();
 	}
@@ -55,9 +54,7 @@ public class SpriteAnimation extends Transition {
 			
 			//x and y of new animation view
 			int x = 0;
-			if (index != 0) {
-				x = (index / columns) * (width + 1) + offsetX; 
-			}
+			x = (index / columns) * (width + 1) + offsetX; 
 			final int y = (index % columns) * height + offsetY;
 			imageView.setViewport(new Rectangle2D(x, y, width, height));
 			
@@ -69,14 +66,15 @@ public class SpriteAnimation extends Transition {
 		if(k==1){
 			//I had to make moveGraph public for this, might be better just to make a getter method in duelist class
 			States nextState = duelist.moveGraph.findNext(actionType);
-			if(nextState != null) {
-				System.out.println("setting past state to false: "+actionType);
-				System.out.println("setting state to next: "+nextState);
+			if(actionType==States.RECOVER) {
+				duelist.changeState(actionType, false);
+				duelist.playIdle();
+			}
+			else if(nextState != null) {
+				//System.out.println("setting past state to false: "+actionType);
+				//System.out.println("setting state to next: "+nextState);
 				duelist.changeState(actionType, false);
 				duelist.changeState(nextState, true);
-			}
-			if(actionType==States.RECOVER) {
-				duelist.playIdle();
 			}
 		}
 	}

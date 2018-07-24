@@ -38,15 +38,24 @@ public class Flechedge extends Application {
 		ImageView background = new ImageView();
 		background.setImage(new Image("Backgrounds/Flechedge_SpaceHanger_V1-1.png"));
 		
+		//create b1
+		Blade b1 = new Blade(-1, 260, 357);
+				
+		//create b2
+		Blade b2 = new Blade(1, 260, 357);
+		
 		//create p1
-		Duelist p1 = new Duelist(-1, 100, 350);
+		Duelist p1 = new Duelist(b1, -1, 100, 350);
 		p1.changeSubState(SubStates.MIDRET, true);
 		
 		//create p2
-		Duelist p2 = new Duelist(1, 700, 350);
+		Duelist p2 = new Duelist(b2, 1, 700, 350);
+		p2.changeSubState(SubStates.MIDRET, true);
+		
+		
 		
 		//set up scene
-		Group root = new Group(background, p1, p2);
+		Group root = new Group(background, p1, p2, b1);
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
@@ -111,6 +120,7 @@ public class Flechedge extends Application {
 				
 				//movement logic
 				parser.parse();
+				b1.updatePosition(p1);
 				//System.out.println(p1.getState());
 				//System.out.println(p1.getSubState());
 				/*if(keyInputs.contains("UP")) {
