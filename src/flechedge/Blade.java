@@ -59,50 +59,93 @@ public class Blade extends Group {
 		
 		if(state.get(States.LUNGE)) {
 		}
-		else if(state.get(States.LUNGED)) {
-			if(subState.get(SubStates.HIGHEXT)) {
-				setX(x+185);
-				setY(y);
-			}
-			else if(subState.get(SubStates.MIDEXT)) {
-				setX(x+185);
-				setY(y+9);
-			}
-			else if(subState.get(SubStates.LOWEXT)) {
-				setX(x+181);
-				setY(y+20);
-			}
-		}
 		else if(state.get(States.FLECHE)) {
 		}
 		else if(state.get(States.RECOVER)) {
 		}
+		else if(state.get(States.LUNGED)) {
+			if(direction==-1) {
+				if(subState.get(SubStates.HIGHEXT)) {
+					setX(x+185);
+					setY(y);
+				}
+				else if(subState.get(SubStates.MIDEXT)) {
+					setX(x+185);
+					setY(y+9);
+				}
+				else if(subState.get(SubStates.LOWEXT)) {
+					setX(x+181);
+					setY(y+20);
+				}
+			}
+			else {
+				if(subState.get(SubStates.HIGHEXT)) {
+					setX(x-106);
+					setY(y);
+				}
+				else if(subState.get(SubStates.MIDEXT)) {
+					setX(x-105);
+					setY(y+9);
+				}
+				else if(subState.get(SubStates.LOWEXT)) {
+					setX(x-102);
+					setY(y+20);
+				}
+			}
+		}
 		else {
-			if(subState.get(SubStates.HIGHRET)) {
-				setX(x+155);
-				setY(y-2);
+			if(direction==-1) {
+				if(subState.get(SubStates.HIGHRET)) {
+					setX(x+155);
+					setY(y-2);
+				}
+				else if(subState.get(SubStates.MIDRET)) {
+					setX(x+160);
+					setY(y+8);
+				}
+				else if(subState.get(SubStates.LOWRET)) {
+					setX(x+168);
+					setY(y+37);
+				}
+				else if(subState.get(SubStates.HIGHEXT)) {
+					setX(x+185);
+					setY(y-15);
+				}
+				else if(subState.get(SubStates.MIDEXT)) {
+					setX(x+186);
+					setY(y-4);
+				}
+				else if(subState.get(SubStates.LOWEXT)){
+					setX(x+180);
+					setY(y+6);
+				}
 			}
-			else if(subState.get(SubStates.MIDRET)) {
-				setX(x+160);
-				setY(y+8);
+			else {
+				if(subState.get(SubStates.HIGHRET)) {
+					setX(x-76);
+					setY(y-2);
+				}
+				else if(subState.get(SubStates.MIDRET)) {
+					setX(x-81);
+					setY(y+8);
+				}
+				else if(subState.get(SubStates.LOWRET)) {
+					setX(x-89);
+					setY(y+37);
+				}
+				else if(subState.get(SubStates.HIGHEXT)) {
+					setX(x-106);
+					setY(y-15);
+				}
+				else if(subState.get(SubStates.MIDEXT)) {
+					setX(x-107);
+					setY(y-4);
+				}
+				else if(subState.get(SubStates.LOWEXT)){
+					setX(x-101);
+					setY(y+6);
+				}
 			}
-			else if(subState.get(SubStates.LOWRET)) {
-				setX(x+168);
-				setY(y+37);
-			}
-			else if(subState.get(SubStates.HIGHEXT)) {
-				setX(x+185);
-				setY(y-15);
-			}
-			else if(subState.get(SubStates.MIDEXT)) {
-				setX(x+186);
-				setY(y-4);
-			}
-			else if(subState.get(SubStates.LOWEXT)){
-				setX(x+180);
-				setY(y+6);
-			}
-			
 		}
 	}
 	public void highRetLunge() {

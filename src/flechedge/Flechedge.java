@@ -42,7 +42,7 @@ public class Flechedge extends Application {
 		Blade b1 = new Blade(-1, 260, 357);
 				
 		//create b2
-		Blade b2 = new Blade(1, 260, 357);
+		Blade b2 = new Blade(1, 760, 357);
 		
 		//create p1
 		Duelist p1 = new Duelist(b1, -1, 100, 350);
@@ -55,7 +55,7 @@ public class Flechedge extends Application {
 		
 		
 		//set up scene
-		Group root = new Group(background, p1, p2, b1);
+		Group root = new Group(background, p1, p2, b1, b2);
 		Scene scene = new Scene(root);
 		scene.setFill(Color.BISQUE);
 		stage.setScene(scene);
@@ -101,7 +101,7 @@ public class Flechedge extends Application {
 		Media media = new Media(fileString); 
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-		mediaPlayer.setAutoPlay(true);
+		//mediaPlayer.setAutoPlay(true);
 		MediaView mediaView = new MediaView(mediaPlayer);
 		root.getChildren().add(mediaView);
 		
@@ -121,6 +121,7 @@ public class Flechedge extends Application {
 				//movement logic
 				parser.parse();
 				b1.updatePosition(p1);
+				b2.updatePosition(p2);
 				//System.out.println(p1.getState());
 				//System.out.println(p1.getSubState());
 				/*if(keyInputs.contains("UP")) {
