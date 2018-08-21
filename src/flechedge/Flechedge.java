@@ -101,7 +101,7 @@ public class Flechedge extends Application {
 		Media media = new Media(fileString); 
 		final MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-		//mediaPlayer.setAutoPlay(true);
+		mediaPlayer.setAutoPlay(true);
 		MediaView mediaView = new MediaView(mediaPlayer);
 		root.getChildren().add(mediaView);
 		

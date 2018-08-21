@@ -38,6 +38,7 @@ public class CommandParser {
 			p1.recover();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_PAR))) {
+			p1.parry();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P1_ADV))) {
 			p1.advance();
@@ -85,6 +86,9 @@ public class CommandParser {
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
 			p2.extend();
+		}
+		if (!keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
+			p2.retract();
 		}
 		if (keyInputs.contains(keyMap.get(BaseCommands.P2_THROW))) {
 

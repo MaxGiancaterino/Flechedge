@@ -12,12 +12,14 @@ import javafx.util.Duration;
 public class Blade extends Group {
 	private ImageView iv = new ImageView();
 	private int direction;
-	private BladeAnimation highParry, midParry, lowParry, highRetLunge, midRetLunge, lowRetLunge, highExtLunge, midExtLunge, lowExtLunge,
+	private BladeAnimation parry, highRetLunge, midRetLunge, lowRetLunge, highExtLunge, midExtLunge, lowExtLunge,
 	highRecover, midRecover, lowRecover;
 	private Image idle;
+	private Boolean parrying;
 	
 	public Blade(int direction, int x, int y) {
 		this.direction = direction;
+		this.parrying = false;
 		this.setX(x);
 		this.setY(y);
 		this.getChildren().addAll(iv);
@@ -31,6 +33,7 @@ public class Blade extends Group {
 		highRecover = new BladeAnimation("Sprites/BladeStillV1.png", this, iv, new Duration(650), new int[] {0, 0, -22, -10, -12, -5, -45, 13}, 1, 0, 0, 140, 120, direction, false);
 		midRecover = new BladeAnimation("Sprites/BladeStillV1.png", this, iv, new Duration(650), new int[] {0, 0, -22, -10, -15, -5, -37, 14}, 1, 0, 0, 140, 120, direction, false);
 		lowRecover = new BladeAnimation("Sprites/BladeStillV1.png", this, iv, new Duration(650), new int[] {0, 0, -22, -8, -20, -5, -20, 30}, 1, 0, 0, 140, 120, direction, false);
+		parry = new BladeAnimation("Sprites/Parry.png", this, iv, new Duration(400), new int[] {0,0, 0,0, 0,0}, 1, 0, 0, 140, 120, direction, true, true);
 		
 		playIdle();
 	}
@@ -47,6 +50,10 @@ public class Blade extends Group {
 		iv.setImage(idle);
 		iv.setScaleX(direction);
 		iv.setVisible(true);
+	}
+	
+	public void parryingFalse() {
+		parrying = false;
 	}
 	
 	public void updatePosition(Duelist duelist) {
@@ -174,5 +181,12 @@ public class Blade extends Group {
 	}
 	public void lowRecover() {
 		lowRecover.play();
+	}
+	
+	public void parry() {
+		if(!parrying) {
+			parrying = true;
+			parry.play();
+		}
 	}
 }

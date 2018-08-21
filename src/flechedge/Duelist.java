@@ -254,7 +254,7 @@ public class Duelist extends Group {
 		}
 	}
 	public void retract() {
-		/*this first line breaks my heart. it's an ugly patch on poor design. because retract is called when the modifier key (w)
+		/*this first line breaks my heart. it's an ugly patch on poor design. because retract is called when the extend key (space)
 		 * *isn't* pressed, retract is called when lunged. you're not allowed to retract while lunged (didn't make any animations),
 		 * but you can change line. ARMMOVE is either type of arm movement, so when retract is (automatically) called, it retracts
 		 * because ARMMOVEs are ok. :(
@@ -399,6 +399,11 @@ public class Duelist extends Group {
 			bot.setVisible(true);
 			retreat.play();
 		}
+	}
+	
+	public void parry() {
+		//TODO: add parry conditions in movetree
+		blade.parry();
 	}
 
 }

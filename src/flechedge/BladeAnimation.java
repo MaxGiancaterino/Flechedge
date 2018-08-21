@@ -22,6 +22,7 @@ public class BladeAnimation extends Transition {
 	private Blade blade;
 	private final Boolean dynamic;
 	private int lastIndex = 0;
+	private final Boolean parry;
 
 	
 	//BladeAnimation "duration" variable is list of x,y coordinates. Values alternate. Eg. (3,5),(4,5) = 3,5,4,5
@@ -38,9 +39,27 @@ public class BladeAnimation extends Transition {
 		this.blade = blade;
 		this.direction = direction;
 		this.dynamic = dynamic;
+		this.parry = false;
 		setCycleDuration(duration);
 		setInterpolator(Interpolator.LINEAR);
 	}
+	public BladeAnimation(String filename, Blade blade, ImageView imageView, Duration duration, int[] movement, int columns, 
+			int offsetX, int offsetY, int width, int height, int direction, Boolean dynamic, Boolean parry) {
+			this.imageView = imageView;
+			this.filename = filename;
+			this.movement = movement;
+			this.columns = columns;
+			this.offsetX = offsetX;
+			this.offsetY = offsetY;
+			this.width = width;
+			this.height = height;
+			this.blade = blade;
+			this.direction = direction;
+			this.dynamic = dynamic;
+			this.parry = parry;
+			setCycleDuration(duration);
+			setInterpolator(Interpolator.LINEAR);
+		}
 
 	@Override
 	public void play() {
@@ -55,12 +74,14 @@ public class BladeAnimation extends Transition {
 		final int index = 2*Math.min((int)(k * Math.floor(movement.length/2)), (int)Math.floor(movement.length/2) - 1);
 		if (index != lastIndex) {
 			if(dynamic) {
+				int anIndex = index/2;
 				//x and y of new animation view
+				System.out.println("index: "+anIndex);
 				int x = 0;
-				if (index != 0) {
-					x = (index / columns) * (width + 1) + offsetX; 
+				if (anIndex != 0) {
+					x = (anIndex / columns) * (width + 1) + offsetX; 
 				}
-				final int y = (index % columns) * height + offsetY;
+				final int y = (anIndex % columns) * height + offsetY;
 				imageView.setViewport(new Rectangle2D(x, y, width, height));
 			}
 			
@@ -68,6 +89,9 @@ public class BladeAnimation extends Transition {
 			blade.setX((int)(imageView.getX() + (-direction * movement[index])));
 			blade.setY((int)(imageView.getY() + (movement[index+1])));
 			lastIndex = index;
+		}
+		if(k==1 && parry) {
+			blade.parryingFalse();
 		}
 	}
 }
