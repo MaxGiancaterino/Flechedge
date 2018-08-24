@@ -76,7 +76,6 @@ public class BladeAnimation extends Transition {
 			if(dynamic) {
 				int anIndex = index/2;
 				//x and y of new animation view
-				System.out.println("index: "+anIndex);
 				int x = 0;
 				if (anIndex != 0) {
 					x = (anIndex / columns) * (width + 1) + offsetX; 
@@ -85,7 +84,7 @@ public class BladeAnimation extends Transition {
 				imageView.setViewport(new Rectangle2D(x, y, width, height));
 			}
 			
-			//x of imageView
+			//x&y of imageView
 			blade.setX((int)(imageView.getX() + (-direction * movement[index])));
 			blade.setY((int)(imageView.getY() + (movement[index+1])));
 			lastIndex = index;

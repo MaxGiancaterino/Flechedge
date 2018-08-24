@@ -13,13 +13,14 @@ public class Blade extends Group {
 	private ImageView iv = new ImageView();
 	private int direction;
 	private BladeAnimation parry, highRetLunge, midRetLunge, lowRetLunge, highExtLunge, midExtLunge, lowExtLunge,
-	highRecover, midRecover, lowRecover;
-	private Image idle;
-	private Boolean parrying;
+	highRecover, midRecover, lowRecover, whiteBlade;
+	private Boolean parrying, parryChance, parrySuccess;
 	
 	public Blade(int direction, int x, int y) {
 		this.direction = direction;
 		this.parrying = false;
+		this.parrySuccess = false;
+		this.parryChance = false;
 		this.setX(x);
 		this.setY(y);
 		this.getChildren().addAll(iv);
@@ -34,8 +35,9 @@ public class Blade extends Group {
 		midRecover = new BladeAnimation("Sprites/BladeStillV1.png", this, iv, new Duration(650), new int[] {0, 0, -22, -10, -15, -5, -37, 14}, 1, 0, 0, 140, 120, direction, false);
 		lowRecover = new BladeAnimation("Sprites/BladeStillV1.png", this, iv, new Duration(650), new int[] {0, 0, -22, -8, -20, -5, -20, 30}, 1, 0, 0, 140, 120, direction, false);
 		parry = new BladeAnimation("Sprites/Parry.png", this, iv, new Duration(400), new int[] {0,0, 0,0, 0,0}, 1, 0, 0, 140, 120, direction, true, true);
+		whiteBlade = new BladeAnimation("Sprites/WhiteBlade.png", this, iv, new Duration(1), new int[] {0,0}, 1, 0, 0, 140, 120, direction, false);
 		
-		playIdle();
+		resetColor();
 	}
 	
 	public void setX(int x) {
@@ -44,12 +46,11 @@ public class Blade extends Group {
 	public void setY(int y) {
 		iv.setY(y);
 	}
-	
-	public void playIdle() {
-		idle = new Image("Sprites/BladeStillV1.png");
-		iv.setImage(idle);
-		iv.setScaleX(direction);
-		iv.setVisible(true);
+	public int getX() {
+		return (int) iv.getX();
+	}
+	public int getY() {
+		return (int) iv.getY();
 	}
 	
 	public void parryingFalse() {
@@ -62,7 +63,6 @@ public class Blade extends Group {
 		
 		int x = duelist.getX();
 		int y = duelist.getY();
-		
 		
 		if(state.get(States.LUNGE)) {
 		}
@@ -187,6 +187,40 @@ public class Blade extends Group {
 		if(!parrying) {
 			parrying = true;
 			parry.play();
+			if(parryChance) {
+				parrySuccess = true;
+			}
 		}
+	}
+	
+	public void touch() {
+		System.out.println("touch");
+		iv.setImage(new Image("Sprites/GreenBlade.png"));
+		iv.setScaleX(direction);
+		iv.setVisible(true);
+	}
+	public void parryColor() {
+		whiteBlade.play();
+	}
+	
+	public void resetColor() {
+		System.out.println("reset color");
+		iv.setImage(new Image("Sprites/BladeStillV1.png"));
+		iv.setScaleX(direction);
+		iv.setVisible(true);
+	}
+	
+	public void setParryChance(Boolean bool) {
+		parryChance = bool;
+	}
+	
+	public Boolean getParrySuccess() {
+		return parrySuccess;
+	}
+	public void resetParrySuccess() {
+		parrySuccess = false;
+	}
+	public Boolean getParrying() {
+		return parrying;
 	}
 }

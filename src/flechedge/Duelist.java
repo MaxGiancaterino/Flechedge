@@ -85,9 +85,6 @@ public class Duelist extends Group {
 		highRecover = new SpriteAnimation("Sprites/HighRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
 		midRecover = new SpriteAnimation("Sprites/MidRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
 		lowRecover = new SpriteAnimation("Sprites/LowRecover.png", this, States.RECOVER, top, new Duration(650), new int[] {0, -22, -15, -12}, 1, 0, 0, 219, 200, direction);
-		
-		botIdle.play();
-		midRet.play();
 	}
 	
 	public void setX(double x) {
@@ -134,6 +131,13 @@ public class Duelist extends Group {
 			subState.put(key, false);
 		}
 	}
+	public void resetState() {
+		for(States key : state.keySet()) {
+			state.put(key, false);
+		}
+		state.put(States.ARMIDLE, true);
+		state.put(States.LEGIDLE, true);
+	}
 	
 	//this is a small problem. pretty sure get functions should be read-only, but this isn't
 	public HashMap<States, Boolean> getState() {
@@ -143,7 +147,6 @@ public class Duelist extends Group {
 		return subState;
 	}
 	
-	//TODO: these line changes need cases for lunged linechange
 	//high retract
 	public void lineChangeHigh() {
 		if(!state.get(States.LUNGED) && moveGraph.check(state, States.ARMMOVE) && 
@@ -295,46 +298,46 @@ public class Duelist extends Group {
 	public void lunge() {
 		//TODO: add all the animations
 		if(moveGraph.check(state, States.LUNGE)) {
-			System.out.println("in lunge");
+			//System.out.println("in lunge");
 			state.put(States.LUNGE, true);
 			bot.setVisible(false);
 			if(subState.get(SubStates.HIGHEXT)) {
-				System.out.println("in highExt branch");
+				//System.out.println("in highExt branch");
 				resetSubState();
 				subState.put(SubStates.HIGHEXT, true);
 				blade.highExtLunge();
 				highExtLunge.play();
 			}
 			else if(subState.get(SubStates.MIDEXT)) {
-				System.out.println("in midExt branch");
+				//System.out.println("in midExt branch");
 				resetSubState();
 				subState.put(SubStates.MIDEXT, true);
 				blade.midExtLunge();
 				midExtLunge.play();
 			}
 			else if(subState.get(SubStates.LOWEXT)) {
-				System.out.println("in lowExt branch");
+				//System.out.println("in lowExt branch");
 				resetSubState();
 				subState.put(SubStates.LOWEXT, true);
 				blade.lowExtLunge();
 				lowExtLunge.play();
 			}
 			else if(subState.get(SubStates.HIGHRET)) {
-				System.out.println("in highRet branch");
+				//System.out.println("in highRet branch");
 				resetSubState();
 				subState.put(SubStates.HIGHEXT, true);
 				blade.highRetLunge();
 				highRetLunge.play();
 			}
 			else if(subState.get(SubStates.MIDRET)) {
-				System.out.println("in midRet branch");
+				//System.out.println("in midRet branch");
 				resetSubState();
 				subState.put(SubStates.MIDEXT, true);
 				blade.midRetLunge();
 				midRetLunge.play();
 			}
 			else if(subState.get(SubStates.LOWRET)) {
-				System.out.println("in lowRet branch");
+				//System.out.println("in lowRet branch");
 				resetSubState();
 				subState.put(SubStates.LOWEXT, true);
 				blade.lowRetLunge();
@@ -348,11 +351,11 @@ public class Duelist extends Group {
 		//System.out.println("out");
 	}
 	
-	//TODO: extension over other lines. recover animation needs to end in extension + worry about setting bot visible
+	//TODO: make recover animation end in extension?
 	public void recover() {
 		//System.out.println("CheckRecover: "+moveGraph.check(state, States.RECOVER));
 		if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.HIGHEXT)) {
-			System.out.println("HighRec");
+			//System.out.println("HighRec");
 			state.put(States.LUNGED, false);
 			state.put(States.RECOVER, true);
 			resetSubState();
@@ -361,7 +364,7 @@ public class Duelist extends Group {
 			highRecover.play();
 		}
 		else if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.MIDEXT)) {
-			System.out.println("MidRec");
+			//System.out.println("MidRec");
 			state.put(States.LUNGED, false);
 			state.put(States.RECOVER, true);
 			resetSubState();
@@ -370,7 +373,7 @@ public class Duelist extends Group {
 			midRecover.play();
 		}
 		else if(moveGraph.check(state, States.RECOVER) && subState.get(SubStates.LOWEXT)) {
-			System.out.println("LowRec");
+			//System.out.println("LowRec");
 			state.put(States.LUNGED, false);
 			state.put(States.RECOVER, true);
 			resetSubState();
@@ -383,7 +386,7 @@ public class Duelist extends Group {
 	public void advance() {
 		//System.out.println("advance okay:"+moveGraph.check(state, States.STEP));
 		if(moveGraph.check(state, States.STEP)) {
-			System.out.println("advance okay!");
+			//System.out.println("advance okay!");
 			state.put(States.STEP, true);
 			state.put(States.LEGIDLE, false);
 			bot.setVisible(true);

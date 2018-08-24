@@ -23,75 +23,75 @@ public class CommandParser {
 		this.p2 = p2;
 	}
 
-	public void parse() {
+	public void parse(int code) {
 		
-		/*if (keyInputs.contains((keyMap.get(BaseCommands.P1_ADV)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P1_EXT)))
-				&& keyInputs.contains((keyMap.get(BaseCommands.P1_MOD)))) {
-			p1.lunge();
-		}*/
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_MOD))) {
-			p1.lunge();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_RET))) {
-			p1.retreat();
-			p1.recover();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_PAR))) {
-			p1.parry();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_ADV))) {
-			p1.advance();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_HIGH))) {
-			p1.lineChangeHigh();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_MID))) {
-			p1.lineChangeMid();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_LOW))) {
-			p1.lineChangeLow();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_EXT))) {
-			p1.extend();
-		}
-		if (!keyInputs.contains(keyMap.get(BaseCommands.P1_EXT))) {
-			p1.retract();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P1_THROW))) {
-
+		if(code==1 || code==0) {
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_MOD))) {
+				p1.lunge();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_RET))) {
+				p1.retreat();
+				p1.recover();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_PAR))) {
+				p1.parry();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_ADV))) {
+				p1.advance();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_HIGH))) {
+				p1.lineChangeHigh();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_MID))) {
+				p1.lineChangeMid();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_LOW))) {
+				p1.lineChangeLow();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_EXT))) {
+				p1.extend();
+			}
+			if (!keyInputs.contains(keyMap.get(BaseCommands.P1_EXT))) {
+				p1.retract();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P1_THROW))) {
+	
+			}
 		}
 
 		// p2
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_MOD))) {
-			p2.lunge();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_RET))) {
-			p2.retreat();
-			p2.recover();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_PAR))) {
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_ADV))) {
-			p2.advance();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_HIGH))) {
-			p2.lineChangeHigh();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_MID))) {
-			p2.lineChangeMid();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_LOW))) {
-			p2.lineChangeLow();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
-			p2.extend();
-		}
-		if (!keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
-			p2.retract();
-		}
-		if (keyInputs.contains(keyMap.get(BaseCommands.P2_THROW))) {
-
+		if(code==2 || code==0) {
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_MOD))) {
+				p2.lunge();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_RET))) {
+				p2.retreat();
+				p2.recover();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_PAR))) {
+				p2.parry();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_ADV))) {
+				p2.advance();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_HIGH))) {
+				p2.lineChangeHigh();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_MID))) {
+				p2.lineChangeMid();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_LOW))) {
+				p2.lineChangeLow();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
+				p2.extend();
+			}
+			if (!keyInputs.contains(keyMap.get(BaseCommands.P2_EXT))) {
+				p2.retract();
+			}
+			if (keyInputs.contains(keyMap.get(BaseCommands.P2_THROW))) {
+	
+			}
 		}
 	}
 }

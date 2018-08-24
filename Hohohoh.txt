@@ -4,6 +4,13 @@ Width: 219 px
 Height: 200 px
 Floor: 187 px
 
+Blade sprite box
+Width: 140 px
+Height: 120 px
+Handle: 126 px (1 indexed)
+Tip to closest edge: 14 px
+Parry height: 14 px
+
 To do: Easy to hard 1-5
 -Add all animations to duelist [1]
 -Animate blade [2]
